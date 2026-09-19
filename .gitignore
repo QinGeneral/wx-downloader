@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+dist/
+*.egg-info/
+*.part
+auth.json
+.env
+.DS_Store
+.playwright-cli/
+*.mp4
+*.log

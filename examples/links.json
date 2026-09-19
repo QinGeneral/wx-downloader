@@ -1,0 +1,6 @@
+{
+  "links": [
+    "https://weixin.qq.com/sph/REPLACE_WITH_SHARE_ID",
+    {"url": "https://weixin.qq.com/sph/REPLACE_WITH_ANOTHER_ID", "title": "可选备注，不参与文件名生成"}
+  ]
+}
