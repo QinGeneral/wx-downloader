@@ -48,10 +48,10 @@ jobs:
         run: uv build --no-sources
 
       - name: Check wheel CLI outside the source project
-        run: uv run --isolated --no-project --with dist/*.whl wx-downloder --version
+        run: uv run --isolated --no-project --with dist/*.whl wx-downloader --version
 
       - name: Check source distribution CLI outside the source project
-        run: uv run --isolated --no-project --with dist/*.tar.gz wx-downloder --help
+        run: uv run --isolated --no-project --with dist/*.tar.gz wx-downloader --help
 
       - name: Upload distributions
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -65,7 +65,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://pypi.org/project/wx-downloder/
+      url: https://pypi.org/project/wx-downloader/
     permissions:
       id-token: write
     steps:

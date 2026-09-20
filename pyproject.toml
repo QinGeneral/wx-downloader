@@ -3,8 +3,8 @@ requires = ["hatchling>=1.26"]
 build-backend = "hatchling.build"
 
 [project]
-name = "wx-downloder"
-version = "0.1.1"
+name = "wx-downloader"
+version = "0.1.2"
 description = "通过元宝登录解析并下载微信视频号分享链接的 Python CLI"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -12,12 +12,12 @@ license = {file = "LICENSE"}
 dependencies = ["httpx>=0.28,<1", "playwright>=1.51,<2"]
 
 [project.scripts]
-wx-downloder = "wx_channels_cli.cli:main"
+wx-downloader = "wx_channels_cli.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/QinGeneral/wx-downloder"
-Repository = "https://github.com/QinGeneral/wx-downloder"
-Issues = "https://github.com/QinGeneral/wx-downloder/issues"
+Homepage = "https://github.com/QinGeneral/wx-downloader"
+Repository = "https://github.com/QinGeneral/wx-downloader"
+Issues = "https://github.com/QinGeneral/wx-downloader/issues"
 
 [dependency-groups]
 dev = ["pytest>=8,<10", "ruff>=0.11"]

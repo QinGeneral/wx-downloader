@@ -28,11 +28,11 @@ def cookie_header(cookies: list[dict]) -> str:
 def load_auth() -> dict:
     auth = read_json(app_home() / "auth.json", {})
     if not isinstance(auth, dict):
-        raise AppError("登录凭据文件格式错误，请运行 wx-downloder login")
+        raise AppError("登录凭据文件格式错误，请运行 wx-downloader login")
     cookie = cookie_header(auth.get("cookies", []))
     names = {part.split("=", 1)[0] for part in cookie.split("; ")}
     if not cookie or not {"hy_user", "hy_token"}.issubset(names):
-        raise AppError("没有可用的元宝登录凭据，请先运行 wx-downloder login")
+        raise AppError("没有可用的元宝登录凭据，请先运行 wx-downloader login")
     return auth | {"cookie": cookie}
 
 
@@ -121,7 +121,9 @@ def login(browser_name: str = "auto", timeout: int = 300, emit=print) -> None:
                     emit("元宝登录凭据已保存（仅当前用户可读写）。")
                     return
                 page.wait_for_timeout(1000)
-            raise AppError("等待登录超时，未检测到 hy_user/hy_token，请重新运行 wx-downloder login")
+            raise AppError(
+                "等待登录超时，未检测到 hy_user/hy_token，请重新运行 wx-downloader login"
+            )
         except BrowserError as exc:
             raise AppError("元宝浏览器登录失败，请检查网络后重试") from exc
         finally:

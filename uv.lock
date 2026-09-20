@@ -352,8 +352,8 @@ wheels = [
 ]
 
 [[package]]
-name = "wx-downloder"
-version = "0.1.1"
+name = "wx-downloader"
+version = "0.1.2"
 source = { editable = "." }
 dependencies = [
     { name = "httpx" },

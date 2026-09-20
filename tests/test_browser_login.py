@@ -11,8 +11,8 @@ from wx_channels_cli.auth import login
 
 
 @pytest.mark.skipif(
-    os.environ.get("WX_DOWNLODER_BROWSER_TEST") != "1",
-    reason="Set WX_DOWNLODER_BROWSER_TEST=1 to run the Chrome regression",
+    os.environ.get("WX_DOWNLOADER_BROWSER_TEST") != "1",
+    reason="Set WX_DOWNLOADER_BROWSER_TEST=1 to run the Chrome regression",
 )
 def test_login_closes_cleanly_with_active_requests(tmp_path, monkeypatch, capsys):
     from playwright import sync_api

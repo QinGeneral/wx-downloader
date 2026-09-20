@@ -14,7 +14,7 @@ from .inputs import parse_inputs
 
 
 def parser() -> argparse.ArgumentParser:
-    root = argparse.ArgumentParser(prog="wx-downloder", description="元宝登录 · 微信视频号下载")
+    root = argparse.ArgumentParser(prog="wx-downloader", description="元宝登录 · 微信视频号下载")
     root.add_argument("--version", action="version", version=__version__)
     subs = root.add_subparsers(dest="command", required=True)
     auth = subs.add_parser("login", help="打开元宝浏览器登录并保存凭据")

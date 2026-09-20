@@ -17,7 +17,7 @@ MP4 = b"\x00\x00\x00\x18ftypmp42" + b"\x00" * 128
 
 
 def test_public_command_name():
-    assert cli.parser().prog == "wx-downloder"
+    assert cli.parser().prog == "wx-downloader"
 
 
 @pytest.fixture(autouse=True)

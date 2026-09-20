@@ -32,7 +32,7 @@ def http_url(value: str):
 
 def json_response(response: httpx.Response, stage: str) -> dict:
     if not 200 <= response.status_code < 300:
-        hint = "，请运行 wx-downloder login 重新登录" if response.status_code in (401, 403) else ""
+        hint = "，请运行 wx-downloader login 重新登录" if response.status_code in (401, 403) else ""
         raise AppError(f"{stage}返回 HTTP {response.status_code}{hint}")
     try:
         data = response.json()
