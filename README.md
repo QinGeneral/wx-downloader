@@ -2,7 +2,7 @@
 
 通过腾讯元宝登录解析微信视频号分享链接，将视频下载为 MP4。支持单链接、JSON 批量下载、下载去重，以及独立配置成品目录和临时缓存目录。
 
-当前版本：**[0.1.2 · PyPI](https://pypi.org/project/wx-downloader/0.1.2/)**。包名和 CLI 命令统一为 `wx-downloader`。
+当前发布版本：**[0.1.2 · PyPI](https://pypi.org/project/wx-downloader/0.1.2/)**。包名和 CLI 命令统一为 `wx-downloader`，已验证可以直接从官方 PyPI 安装。
 
 [GitHub 仓库](https://github.com/QinGeneral/wx-downloader) · [发布工作流](https://github.com/QinGeneral/wx-downloader/actions/workflows/release.yml)
 
@@ -192,13 +192,15 @@ WX_DOWNLOADER_BROWSER_TEST=1 uv run pytest tests/test_browser_login.py -q
 
 `0.1.1` 发布前通过了 39 项常规测试和 1 项真实 Chrome 登录关闭回归测试，wheel 和源码包均完成独立安装验证。真实视频实测下载 8,155,895 字节，ffprobe 确认含 H.264 视频和 AAC 音频，时长 73.45 秒。以上真实视频验证使用改名前的 `0.1.1`，更名不改变下载流程。
 
+`0.1.2` 更名后再次通过全部 40 项测试、Ruff 检查，以及 wheel 和源码包的独立安装验证。GitHub Actions 构建和发布成功；从官方 PyPI 隔离运行和临时 `uv tool install wx-downloader==0.1.2` 均验证新命令输出 `0.1.2`。
+
 ## 发布流程
 
 [GitHub Actions 发布工作流](https://github.com/QinGeneral/wx-downloader/actions/workflows/release.yml) 位于 `.github/workflows/release.yml`，已配置 PyPI Trusted Publishing：`QinGeneral / wx-downloader / release.yml / pypi`。
 
 维护者更新 `pyproject.toml` 和 `src/wx_channels_cli/__init__.py` 中的版本，提交后创建一致的 `v<版本>` 标签并推送。构建任务检查标签、运行测试并验证发行包；独立发布任务通过 OIDC 上传，只有发布任务拥有 `id-token: write` 权限。PyPI 已发布版本不可覆盖。
 
-[旧版 0.1.1 发布记录](https://github.com/QinGeneral/wx-downloader/actions/runs/35481356579) · [当前 PyPI 发行文件](https://pypi.org/project/wx-downloader/0.1.2/#files)
+[0.1.2 发布记录](https://github.com/QinGeneral/wx-downloader/actions/runs/35513571542) · [当前 PyPI 发行文件](https://pypi.org/project/wx-downloader/0.1.2/#files)
 
 ## 来源与许可
 
