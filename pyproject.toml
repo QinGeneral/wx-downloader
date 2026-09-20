@@ -14,11 +14,19 @@ dependencies = ["httpx>=0.28,<1", "playwright>=1.51,<2"]
 [project.scripts]
 wx-downloder = "wx_channels_cli.cli:main"
 
+[project.urls]
+Homepage = "https://github.com/QinGeneral/wx-downloder"
+Repository = "https://github.com/QinGeneral/wx-downloder"
+Issues = "https://github.com/QinGeneral/wx-downloder/issues"
+
 [dependency-groups]
 dev = ["pytest>=8,<10", "ruff>=0.11"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/wx_channels_cli"]
+
+[tool.hatch.build.targets.sdist]
+include = ["/src", "/tests", "/examples", "/README.md", "/LICENSE", "/pyproject.toml", "/uv.lock"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

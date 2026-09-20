@@ -7,26 +7,26 @@
 需要 Python 3.10+，以及 Chrome 或 Playwright Chromium。
 
 ```bash
+uv tool install wx-downloder
+wx-downloder --help
+```
+
+固定安装本次版本：`uv tool install wx-downloder==0.1.1`。也支持 `python -m pip install wx-downloder`。
+
+如未安装 Chrome，安装 Playwright Chromium：
+
+```bash
+uv tool run --from playwright playwright install chromium
+```
+
+源码开发安装：
+
+```bash
 git clone https://github.com/QinGeneral/wx-downloder.git
 cd wx-downloder
 uv sync
 uv run wx-downloder --help
 ```
-
-如未安装 Chrome：
-
-```bash
-uv run playwright install chromium
-```
-
-也可以安装为全局命令：
-
-```bash
-uv tool install . --default-index https://pypi.tuna.tsinghua.edu.cn/simple
-wx-downloder --help
-```
-
-也支持在虚拟环境中 `python -m pip install .`。
 
 从旧版 `wx-channels` 更新：先安装新版并确认 `wx-downloder --version` 输出 `0.1.1`，再运行 `uv tool uninstall wx-channels-cli` 移除旧命令。配置目录、`WX_CHANNELS_HOME` 环境变量和登录凭据位置保持兼容，已经登录的用户无需再次扫码。
 
@@ -38,20 +38,20 @@ wx-downloder --help
 
 ```bash
 # 启动独立浏览器窗口，扫码或手机号登录，检测到凭据后自动保存
-uv run wx-downloder login
+wx-downloder login
 
 # 单个链接；未保存登录凭据时会自动打开登录窗口
-uv run wx-downloder download 'https://weixin.qq.com/sph/实际分享ID'
+wx-downloder download 'https://weixin.qq.com/sph/实际分享ID'
 
 # 多个链接 / JSON 文件 / 内联 JSON
-uv run wx-downloder download 'https://weixin.qq.com/sph/ID1' 'https://weixin.qq.com/sph/ID2'
-uv run wx-downloder download --input examples/links.json
-uv run wx-downloder download links.json
-uv run wx-downloder download '["https://weixin.qq.com/sph/ID1", {"url":"https://weixin.qq.com/sph/ID2"}]'
-cat links.json | uv run wx-downloder download - --no-login --json
+wx-downloder download 'https://weixin.qq.com/sph/ID1' 'https://weixin.qq.com/sph/ID2'
+wx-downloder download --input examples/links.json
+wx-downloder download links.json
+wx-downloder download '["https://weixin.qq.com/sph/ID1", {"url":"https://weixin.qq.com/sph/ID2"}]'
+cat links.json | wx-downloder download - --no-login --json
 
 # 不传参数：终端交互输入；管道输入则读取标准输入
-uv run wx-downloder download
+wx-downloder download
 ```
 
 必须使用微信分享生成的 `https://weixin.qq.com/sph/...` 链接。会自动去除分享参数和重复项。暂不支持公众号文章、直播、图集或微信内部短口令。
@@ -62,21 +62,21 @@ JSON 支持字符串数组、带 `url` / `share_url` / `shareUrl` / `sourceUrl` 
 
 ```bash
 # 成品目录，默认 ~/Downloads/wx-channels
-uv run wx-downloder config set download_dir '/Volumes/Data/微信视频'
+wx-downloder config set download_dir '/Volumes/Data/微信视频'
 
 # 临时下载缓存目录，默认 ~/.cache/wx-channels（遵循 XDG_CACHE_HOME）
-uv run wx-downloder config set cache_dir '/Volumes/Data/视频缓存'
+wx-downloder config set cache_dir '/Volumes/Data/视频缓存'
 
 # 单次覆盖配置；支持缓存和成品在不同磁盘
-uv run wx-downloder download --input links.json --output './videos' --cache-dir './cache'
+wx-downloder download --input links.json --output './videos' --cache-dir './cache'
 
-uv run wx-downloder config set quality h265
-uv run wx-downloder config set timeout 120
-uv run wx-downloder config set retries 2
-uv run wx-downloder config set browser chrome
-uv run wx-downloder config show
-uv run wx-downloder status
-uv run wx-downloder logout
+wx-downloder config set quality h265
+wx-downloder config set timeout 120
+wx-downloder config set retries 2
+wx-downloder config set browser chrome
+wx-downloder config show
+wx-downloder status
+wx-downloder logout
 ```
 
 `quality` 默认为 h264；优先所选编码，缺失时尝试通用地址和另一编码。`timeout` 是单次网络读写超时（秒），`retries` 是网络错误、HTTP 429/5xx 的重试次数（0–10）。重试重新解析链接并重新下载，不续传。批量任务中某个视频失败会继续后续项，并返回退出码 1；全部下载或跳过成功返回 0；取消返回 130。
@@ -106,3 +106,9 @@ WX_DOWNLODER_BROWSER_TEST=1 uv run pytest tests/test_browser_login.py -q
 原项目许可证为 MIT + Commons Clause，保留在 `LICENSE`；本项目沿用该许可条件。
 
 验收记录：39 项常规自动化测试和 1 项真实 Chrome 登录关闭回归测试通过，Ruff 检查及格式检查通过，wheel/源码包构建通过。使用源项目已有凭据实测下载了一个 8,155,895 字节的视频，ffprobe 确认含 H.264 视频流和 AAC 音频流，时长 73.45 秒。该实测不替代用户首次扫码登录；新项目未预填源项目的凭据。
+
+## 发布流程
+
+发布使用 GitHub Actions 的 `.github/workflows/release.yml`，绑定 PyPI Trusted Publisher：`QinGeneral / wx-downloder / release.yml / pypi`。构建任务检查版本标签、运行测试、构建 wheel 和源码包并验证 CLI；独立发布任务通过 OIDC 上传，只有发布任务拥有 `id-token: write` 权限。
+
+维护者更新版本并提交后，创建与版本一致的 `v<版本>` 标签并推送即可发布。PyPI 版本不可覆盖。PyPI 页面：[wx-downloder](https://pypi.org/project/wx-downloder/)。
