@@ -33,6 +33,29 @@ wx-downloader config set browser chromium
 
 如果终端提示找不到 `wx-downloader`，运行 `uv tool update-shell` 后重新打开终端。
 
+## AI Skill 安装
+
+仓库提供 [wx-downloader Skill](skills/wx-downloader/SKILL.md)，供支持 `SKILL.md` 的 AI 助手调用本项目 CLI。先按上文安装 `wx-downloader`；PyPI 包只安装命令，Skill 需从源码仓库单独复制。
+
+macOS / Linux：
+
+```bash
+git clone https://github.com/QinGeneral/wx-downloader.git
+cd wx-downloader
+mkdir -p "${CODEX_HOME:-$HOME/.codex}/skills"
+cp -R skills/wx-downloader "${CODEX_HOME:-$HOME/.codex}/skills/"
+```
+
+Windows PowerShell（在已克隆仓库的根目录运行）：
+
+```powershell
+$skillsDir = if ($env:CODEX_HOME) { Join-Path $env:CODEX_HOME 'skills' } else { Join-Path $HOME '.codex\skills' }
+New-Item -ItemType Directory -Force -Path $skillsDir | Out-Null
+Copy-Item -Recurse -Force .\skills\wx-downloader $skillsDir
+```
+
+重新打开 AI 会话后，可请求“用 wx-downloader 下载这个视频号分享链接”，或显式调用 `$wx-downloader`。其他支持 `SKILL.md` 的助手也可将同一文件夹复制到其 skills 目录。
+
 ## 快速开始
 
 ```bash
