@@ -230,3 +230,13 @@ WX_DOWNLOADER_BROWSER_TEST=1 uv run pytest tests/test_browser_login.py -q
 基于 [wx_channels_download](https://github.com/ltaoo/wx_channels_download) 的元宝分享链接下载流程迁移为独立 Python CLI，运行时无需 Go、微信客户端、代理抓包服务或 Cloudflare Worker。
 
 沿用原项目的 MIT + Commons Clause 许可条件，完整文本见 [LICENSE](LICENSE)。
+
+## Star 趋势
+
+<a href="https://www.star-history.com/?repos=QinGeneral%2Fwx-downloader&amp;type=date">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=QinGeneral/wx-downloader&amp;type=date&amp;theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=QinGeneral/wx-downloader&amp;type=date" />
+    <img alt="wx-downloader Star 趋势图" src="https://api.star-history.com/chart?repos=QinGeneral/wx-downloader&amp;type=date" />
+  </picture>
+</a>
